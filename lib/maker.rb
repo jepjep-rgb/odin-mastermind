@@ -7,10 +7,13 @@ class Maker
   end
 
   def choose_type
-    if @player.type == 'Computer'
+    case @player.type
+    when 'Computer'
       randomize_code
-    elsif @player.type == 'Human'
+    when 'Human'
       pick_method
+    else
+      puts 'ERROR'
     end
   end
 
@@ -21,14 +24,17 @@ class Maker
     puts '1. Randomize code'
     puts '2. Manually create code'
     coding_method = gets.chomp until coding_method.to_i == 1 || coding_method.to_i == 2
-    set_method(coding_method.to_i)
+    select_method(coding_method.to_i)
   end
 
-  def set_method(method)
-    if method == 1
+  def select_method(method)
+    case method
+    when 1
       randomize_code
-    elsif method == 2
+    when 2
       create_code
+    else
+      puts 'ERROR'
     end
   end
 
@@ -38,7 +44,7 @@ class Maker
 
   def create_code
     puts 'Please input the code to be decoded (0000-5555): '
-    code = gets.chomp until code.to_i.between?(0,5555)
+    code = gets.chomp until code.to_i.between?(0, 5555)
     # from '1234' to [1, 2, 3, 4]
     code.to_i.digits.reverse
   end

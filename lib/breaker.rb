@@ -29,20 +29,24 @@ class Breaker
     @code_array == guess
   end
 
+  def compare_key_value(guess_value, index, code_index)
+    if guess_value == @code_array[code_index] && code_index == index
+      @guess_result.append(1)
+    elsif guess_value == @code_array[code_index] && code_index != index
+      @guess_result.append(0)
+    elsif guess_value != @code_array[code_index]
+      @guess_result.append(-1)
+    else
+      puts 'ERROR'
+    end
+  end
+
   def compare_digits(guess)
     # correct value and position = 1, correct value but wrong position = 0
     # wrong value = -1
     guess.digits.reverse.each_with_index do |guess_val, index|
       4.times do |code_index|
-        if guess_val == @code_array[code_index] && code_index == index
-          @guess_result.append(1)
-        elsif guess_val == @code_array[code_index] && code_index != index
-          @guess_result.append(0)
-        elsif guess_val != @code_array[code_index]
-          @guess_result.append(-1)
-        else
-          puts 'ERROR'
-        end
+        compare_key_value(guess_val, index, code_index)
       end
     end
   end
