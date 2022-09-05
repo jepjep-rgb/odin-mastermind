@@ -1,12 +1,17 @@
 class Breaker
-    def initialize(player, code_array)
+    def initialize(player, code_array, rounds)
         @player = player
         @code_array = code_array
-        @turn = 0
+        @rounds = rounds
+        @turn = 1
     end
 
     def next_turn
         @turn += 1
+    end
+
+    def end_game?
+        @turn == @rounds
     end
 
     def guess_code()
@@ -39,5 +44,4 @@ class Breaker
         end
     end
 
-    
 end
