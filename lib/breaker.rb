@@ -44,4 +44,14 @@ class Breaker
         end
     end
 
+    def break_code
+        until end_game?
+            guess = guess_code
+            break if correct_guess?(guess)
+            compare_digits(guess)
+            puts @guess_result
+            next_turn
+        end
+    end
+
 end
