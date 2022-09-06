@@ -34,6 +34,27 @@ class Breaker
     @code_array == guess
   end
 
+  def color_player_guess(guess)
+    guess.each_with_index do |guess, index|
+      case guess
+      when 1
+        guess[index] = '1'.bg_red
+      when 2
+        guess[index] = '2'.bg_green
+      when 3
+        guess[index] = '3'.bg_cyan
+      when 4
+        guess[index] = '4'.bg_blue
+      when 5
+        guess[index] = '5'.bg_blue
+      when 6
+        guess[index] = '6'.bg_brown
+      else
+        puts 'ERROR'
+      end
+    end
+  end
+  
   def color_guess_results
     @guess_result.each_with_index do |result, index|
       case result
