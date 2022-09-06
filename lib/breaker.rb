@@ -30,6 +30,7 @@ class Breaker
     @turn == @rounds
   end
 
+  # Human player manual input of guess code
   def guess_code
     # 1111 to 6666 is used because there are only 6 colors
     puts 'Input your guess to break the code (1111-6666): '
@@ -38,6 +39,12 @@ class Breaker
     @guess_result = []
     guess.to_i.digits.reverse
   end
+
+  # Computer player input of guess code (random mode)
+  def random_guess
+    guess = Array.new(4) { rand(1...9) }
+  end
+
 
   def correct_guess?(guess)
     @code_array == guess
