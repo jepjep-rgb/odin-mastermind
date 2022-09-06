@@ -17,9 +17,14 @@ class Breaker
     @turn == @rounds
   end
 
+  def display_color
+    puts "#{'1'.bg_red} #{'2'.bg_green} #{'3'.bg_cyan} #{'4'.bg_blue} #{'5'.bg_magenta} #{'6'.bg_brown}"
+  end
+
   def guess_code
     # 1111 to 6666 is used because there are only 6 colors
     puts 'Input your guess to break the code (1111-6666): '
+    display_color
     guess = gets.chomp until guess.to_i.between?(1111, 6666)
     @guess_result = []
     guess

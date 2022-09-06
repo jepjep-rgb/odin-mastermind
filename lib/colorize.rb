@@ -14,6 +14,10 @@ class String
     colorize(42)
   end
 
+  def bg_brown
+    colorize(43)
+  end
+
   def bg_blue
     colorize(44)
   end
