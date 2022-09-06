@@ -18,9 +18,9 @@ class Breaker
   end
 
   def guess_code
-    # 0000 to 5555 is used because there are only 6 colors
-    puts 'Input your guess to break the code (0000-5555): '
-    guess = gets.chomp until guess.to_i.between?(0, 5555)
+    # 1111 to 6666 is used because there are only 6 colors
+    puts 'Input your guess to break the code (1111-6666): '
+    guess = gets.chomp until guess.to_i.between?(1111, 6666)
     @guess_result = []
     guess
   end
