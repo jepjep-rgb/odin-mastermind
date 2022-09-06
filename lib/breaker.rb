@@ -92,13 +92,23 @@ class Breaker
     end
   end
 
+  def display_guess_results(guess)
+    puts 'Player guess: '
+    color_player_guess(guess)
+    puts "#{guess[0]} #{guess[1]} #{guess[2]} #{guess[3]}"
+    puts ''
+    puts 'Player guess results: '
+    color_guess_results
+    puts "#{@guess_result[0]} #{@guess_result[1]} #{@guess_result[2]} #{@guess_result[3]}"
+  end
+
   def break_code
     until end_game?
       guess = guess_code
       break if correct_guess?(guess)
 
       compare_digits(guess)
-      puts @guess_result
+      display_guess_results(guess)
       next_turn
     end
   end
