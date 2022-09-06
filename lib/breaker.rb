@@ -9,16 +9,25 @@ class Breaker
     @turn = 1
   end
 
+  def break_code
+    until end_game?
+      guess = guess_code
+      break if correct_guess?(guess)
+
+      compare_digits(guess)
+      display_guess_results(guess)
+      next_turn
+    end
+  end
+
+  private
+
   def next_turn
     @turn += 1
   end
 
   def end_game?
     @turn == @rounds
-  end
-
-  def display_color
-    puts "#{'1'.bg_red} #{'2'.bg_green} #{'3'.bg_cyan} #{'4'.bg_blue} #{'5'.bg_magenta} #{'6'.bg_brown}"
   end
 
   def guess_code
@@ -32,6 +41,32 @@ class Breaker
 
   def correct_guess?(guess)
     @code_array == guess
+  end
+
+  def compare_key_value(guess_value, index, code_index)
+    if guess_value == @code_array[code_index] && code_index == index
+      @guess_result.append(1)
+    elsif guess_value == @code_array[code_index] && code_index != index
+      @guess_result.append(0)
+    elsif guess_value != @code_array[code_index]
+      @guess_result.append(-1)
+    else
+      puts 'ERROR'
+    end
+  end
+
+  def compare_digits(guess)
+    # correct value and position = 1, correct value but wrong position = 0
+    # wrong value = -1
+    guess.each_with_index do |guess_val, index|
+      4.times do |code_index|
+        compare_key_value(guess_val, index, code_index)
+      end
+    end
+  end
+
+  def display_color
+    puts "#{'1'.bg_red} #{'2'.bg_green} #{'3'.bg_cyan} #{'4'.bg_blue} #{'5'.bg_magenta} #{'6'.bg_brown}"
   end
 
   def color_player_guess(guess)
@@ -70,28 +105,6 @@ class Breaker
     end
   end
 
-  def compare_key_value(guess_value, index, code_index)
-    if guess_value == @code_array[code_index] && code_index == index
-      @guess_result.append(1)
-    elsif guess_value == @code_array[code_index] && code_index != index
-      @guess_result.append(0)
-    elsif guess_value != @code_array[code_index]
-      @guess_result.append(-1)
-    else
-      puts 'ERROR'
-    end
-  end
-
-  def compare_digits(guess)
-    # correct value and position = 1, correct value but wrong position = 0
-    # wrong value = -1
-    guess.each_with_index do |guess_val, index|
-      4.times do |code_index|
-        compare_key_value(guess_val, index, code_index)
-      end
-    end
-  end
-
   def display_guess_results(guess)
     puts 'Player guess: '
     color_player_guess(guess)
@@ -100,16 +113,5 @@ class Breaker
     puts 'Player guess results: '
     color_guess_results
     puts "#{@guess_result[0]} #{@guess_result[1]} #{@guess_result[2]} #{@guess_result[3]}"
-  end
-
-  def break_code
-    until end_game?
-      guess = guess_code
-      break if correct_guess?(guess)
-
-      compare_digits(guess)
-      display_guess_results(guess)
-      next_turn
-    end
   end
 end
