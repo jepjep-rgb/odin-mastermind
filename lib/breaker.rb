@@ -27,7 +27,7 @@ class Breaker
     display_color
     guess = gets.chomp until guess.to_i.between?(1111, 6666)
     @guess_result = []
-    guess
+    guess.to_i.digits.reverse
   end
 
   def correct_guess?(guess)
@@ -64,7 +64,7 @@ class Breaker
   def compare_digits(guess)
     # correct value and position = 1, correct value but wrong position = 0
     # wrong value = -1
-    guess.digits.reverse.each_with_index do |guess_val, index|
+    guess.each_with_index do |guess_val, index|
       4.times do |code_index|
         compare_key_value(guess_val, index, code_index)
       end
