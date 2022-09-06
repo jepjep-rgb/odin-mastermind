@@ -34,6 +34,21 @@ class Breaker
     @code_array == guess
   end
 
+  def color_guess_results
+    @guess_result.each_with_index do |result, index|
+      case result
+      when 1
+        @guess_result[index] = ''.bg_green
+      when 0
+        @guess_result[index] = ''.bg_brown
+      when -1
+        @guess_result[index] = ''.bg_red
+      else
+        puts 'ERROR'
+      end
+    end
+  end
+
   def compare_key_value(guess_value, index, code_index)
     if guess_value == @code_array[code_index] && code_index == index
       @guess_result.append(1)
