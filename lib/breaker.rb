@@ -7,6 +7,9 @@ class Breaker
     @code_array = code_array
     @rounds = rounds
     @turn = 1
+    @correct_array = []
+    @avoid_number = []
+    @unknown_indexes = []
   end
 
   def break_code
@@ -45,6 +48,20 @@ class Breaker
     guess = Array.new(4) { rand(1...9) }
   end
 
+  def sort_guess(guess)
+    @guess_result.each_with_index do |val, idx|
+      case val
+      when 1
+        @correct_array[idx] = guess[idx]
+      when 0
+        @unknown_indexes.append([val, idx])
+      when -1
+        @avoid_number.append(guess[idx])
+      else
+        puts 'ERROR'
+      end
+    end
+  end
 
   def correct_guess?(guess)
     @code_array == guess
