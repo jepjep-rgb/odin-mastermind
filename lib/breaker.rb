@@ -63,6 +63,26 @@ class Breaker
     end
   end
 
+  def fill_guess
+    guess = @correct_array
+    guess.each_with_index do |val, idx|
+      if val.nil?
+        guess[idx] = rand(1..9) until guess & @avoid_number == []
+      else
+        next
+      end
+    end
+    guess
+  end
+
+  def smart_guess
+    if @turn == 1
+      return random_guess
+    else
+      return fill_guess 
+    end
+  end
+
   def correct_guess?(guess)
     @code_array == guess
   end
