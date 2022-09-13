@@ -2,7 +2,7 @@
 
 # Player class for the Mastermind project
 class Player
-  attr_reader :name, :type, :score
+  attr_reader :name, :type, :score, :playstyle
 
   def initialize(name, type, playstyle)
     @name = name

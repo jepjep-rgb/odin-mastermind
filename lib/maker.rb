@@ -39,7 +39,7 @@ class Maker
   end
 
   def randomize_code
-    @code_array = Array.new(4) { rand(1...9) }
+    @code_array = Array.new(4) { rand(1..9) }
   end
 
   def create_code

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Mastermind class for the Mastermind project
 class Mastermind
   def play
     play_game = true
@@ -14,12 +17,12 @@ class Mastermind
     name1 = player_name(1)
     type1 = player_type(name1)
     playstyle1 = player_playstyle(name1)
-    @player1 = Player.new(name1,type1,playstyle1)
+    @player1 = Player.new(name1, type1, playstyle1)
 
     name2 = player_name(2)
     type2 = player_type(name2)
     playstyle2 = player_playstyle(name1, playstyle1)
-    @player2 = Player.new(name2,type2, playstyle2)
+    @player2 = Player.new(name2, type2, playstyle2)
   end
 
   def player_name(num)
@@ -30,15 +33,15 @@ class Mastermind
   def player_type(name)
     puts "#{name}, please input if the player type (1 = human, 2 = computer): "
     type = gets.chomp until type.to_i == 1 || type.to_i == 2
-    return type_convert(type)
+    type_convert(type)
   end
 
   def type_convert(type)
     case type
     when 1
-      return 'Human'
+      'Human'
     when 2
-      return 'Computer'
+      'Computer'
     else
       puts 'ERROR'
     end
@@ -46,16 +49,16 @@ class Mastermind
 
   def player_playstyle(name, other_playstyle = '')
     puts "#{name}, please input playstyle (1 = code maker, 2 = code breaker): "
-    playstyle = gets.chomp until playstyle.between?(1,2) && playstyle != other_playstyle
-    return playstyle_convert(playstyle)
+    playstyle = gets.chomp until playstyle.between?(1, 2) && playstyle != other_playstyle
+    playstyle_convert(playstyle)
   end
 
   def playstyle_convert(playstyle)
     case playstyle
     when 1
-      return 'Maker'
+      'Maker'
     when 2
-      return 'Breaker'
+      'Breaker'
     else
       puts 'ERROR'
     end
@@ -63,11 +66,13 @@ class Mastermind
 
   def maker?(player, other_player)
     return player if player.playstyle == 'Maker'
+
     other_player
   end
 
   def breaker?(player, other_player)
     return player if player.playstyle == 'Breaker'
+
     other_player
   end
 
@@ -120,7 +125,7 @@ class Mastermind
 
     breaker = breaker?(@player1, @player2)
     @breaker = Breaker.new(breaker, code_array, rounds)
-    # Note: break_code method loops until the game ends or the player wins
+    # NOTE: break_code method loops until the game ends or the player wins
     @breaker.break_code
   end
 

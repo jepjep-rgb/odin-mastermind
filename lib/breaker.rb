@@ -9,7 +9,6 @@ class Breaker
     @turn = 1
     @correct_array = []
     @avoid_number = []
-    @unknown_indexes = []
   end
 
   def break_code
@@ -56,7 +55,7 @@ class Breaker
 
   # Computer player input of guess code (random mode)
   def random_guess
-    guess = Array.new(4) { rand(1...9) }
+    Array.new(4) { rand(1..9) }
   end
 
   def sort_guess(guess)
@@ -64,8 +63,6 @@ class Breaker
       case val
       when 1
         @correct_array[idx] = guess[idx]
-      when 0
-        @unknown_indexes.append([val, idx])
       when -1
         @avoid_number.append(guess[idx])
       else
@@ -77,21 +74,16 @@ class Breaker
   def fill_guess
     guess = @correct_array
     guess.each_with_index do |val, idx|
-      if val.nil?
-        guess[idx] = rand(1..9) until guess & @avoid_number == []
-      else
-        next
-      end
+      next unless val.nil?
+
+      guess[idx] = rand(1..9) until guess & @avoid_number == []
     end
     guess
   end
 
   def smart_guess
-    if @turn == 1
-      return random_guess
-    else
-      return fill_guess 
-    end
+    random_guess if @turn == 1
+    fill_guess
   end
 
   def correct_guess?(guess)
@@ -120,13 +112,14 @@ class Breaker
     end
   end
 
+  # Display colored values methods
   def display_color
     puts "#{'1'.bg_red} #{'2'.bg_green} #{'3'.bg_cyan} #{'4'.bg_blue} #{'5'.bg_magenta} #{'6'.bg_brown}"
   end
 
   def color_player_guess(guess)
-    guess.each_with_index do |guess, index|
-      case guess
+    guess.each_with_index do |value, index|
+      case value
       when 1
         guess[index] = '1'.bg_red
       when 2
@@ -144,7 +137,7 @@ class Breaker
       end
     end
   end
-  
+
   def color_guess_results
     @guess_result.each_with_index do |result, index|
       case result
