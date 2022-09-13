@@ -46,9 +46,39 @@ class Mastermind
     when 1
       return 'Maker'
     when 2
-      retunr 'Breaker'
+      return 'Breaker'
     else
       puts 'ERROR'
     end
   end
+
+  def maker?(player, other_player)
+    return player if player.playstyle == 'Maker'
+    other_player
+  end
+
+  def breaker?(player, other_player)
+    return player if player.playstyle == 'Breaker'
+    other_player
+  end
+
+  def input_rounds
+    puts "#{@maker.player.name}, please input the number of rounds (3 to 20): "
+    rounds = gets.chomp until rounds.to_i.between?(3, 20)
+    rounds
+  end
+
+  def game_loop
+    maker = maker?(@player1, @player2)
+    @maker = Maker.new(maker)
+
+    code_array = @maker.choose_type
+    rounds = input_rounds
+
+    breaker = breaker?(@player1, @player2)
+    @breaker = Breaker.new(breaker, code_array, rounds)
+    # Note: break_code method loops until the game ends or the player wins
+    @breaker.break_code
+  end
+
 end
