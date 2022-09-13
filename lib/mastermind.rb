@@ -71,10 +71,44 @@ class Mastermind
     other_player
   end
 
+  def choose_rounds
+    case @maker.player.type
+    when 'Computer'
+      randomize_rounds
+    when 'Human'
+      pick_rounds
+    else
+      puts 'ERROR'
+    end
+  end
+
+  def pick_rounds
+    puts 'Please choose from the following: '
+    puts '1. Randomize number of rounds'
+    puts '2. Manually input number of rounds'
+    rounds = gets.chomp until rounds.to_i == 1 || coding_method.to_i == 2
+    select_rounds(rounds.to_i)
+  end
+
+  def select_rounds(rounds)
+    case rounds
+    when 1
+      randomize_code
+    when 2
+      input_rounds
+    else
+      puts 'ERROR'
+    end
+  end
+
   def input_rounds
     puts "#{@maker.player.name}, please input the number of rounds (3 to 20): "
     rounds = gets.chomp until rounds.to_i.between?(3, 20)
     rounds
+  end
+
+  def randomize_rounds
+    rand(3..20)
   end
 
   def game_loop
@@ -82,7 +116,7 @@ class Mastermind
     @maker = Maker.new(maker)
 
     code_array = @maker.choose_type
-    rounds = input_rounds
+    rounds = choose_rounds
 
     breaker = breaker?(@player1, @player2)
     @breaker = Breaker.new(breaker, code_array, rounds)
