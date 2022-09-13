@@ -4,11 +4,13 @@ class Mastermind
   def start
     name1 = player_name(1)
     type1 = player_type(name1)
-    @player1 = Player.new(name1,type1)
+    playstyle1 = player_playstyle(name1)
+    @player1 = Player.new(name1,type1,playstyle1)
 
     name2 = player_name(2)
     type2 = player_type(name2)
-    @player2 = Player.new(name2,type2)
+    playstyle2 = player_playstyle(name1, playstyle1)
+    @player2 = Player.new(name2,type2, playstyle2)
   end
 
   def player_name(num)
@@ -28,6 +30,23 @@ class Mastermind
       return 'Human'
     when 2
       return 'Computer'
+    else
+      puts 'ERROR'
+    end
+  end
+
+  def player_playstyle(name, other_playstyle = '')
+    puts "#{name}, please input playstyle (1 = code maker, 2 = code breaker): "
+    playstyle = gets.chomp until playstyle.between?(1,2) && playstyle != other_playstyle
+    return playstyle_convert(playstyle)
+  end
+
+  def playstyle_convert(playstyle)
+    case playstyle
+    when 1
+      return 'Maker'
+    when 2
+      retunr 'Breaker'
     else
       puts 'ERROR'
     end

@@ -4,9 +4,10 @@
 class Player
   attr_reader :name, :type, :score
 
-  def initialize(name, type)
+  def initialize(name, type, playstyle)
     @name = name
     @type = type
+    @playstyle = playstyle
     @score = 0
   end
 
