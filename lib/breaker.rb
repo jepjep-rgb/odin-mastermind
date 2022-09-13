@@ -33,8 +33,19 @@ class Breaker
     @turn == @rounds
   end
 
-  # Human player manual input of guess code
   def guess_code
+    case @player.type
+    when 'Computer'
+      smart_guess
+    when 'Human'
+      input_guess
+    else
+      puts 'ERROR'
+    end
+  end
+
+  # Human player manual input of guess code
+  def input_guess
     # 1111 to 6666 is used because there are only 6 colors
     puts 'Input your guess to break the code (1111-6666): '
     display_color
