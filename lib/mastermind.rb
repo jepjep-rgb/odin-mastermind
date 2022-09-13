@@ -1,4 +1,13 @@
 class Mastermind
+  def play
+    play_game = true
+    while play_game
+      start
+      game_loop
+      play_game = restart?
+    end
+  end
+
   private
 
   def start
@@ -81,4 +90,9 @@ class Mastermind
     @breaker.break_code
   end
 
+  def restart?
+    puts 'Do you want to restart the game? (y/n): '
+    answer = gets.chomp until answer.downcase == 'y' || answer.downcase == 'n'
+    answer == 'y'
+  end
 end
